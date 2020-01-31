@@ -56,7 +56,7 @@ public class MainActivity extends AppCompatActivity
     private Uri uri;
     private DrawerLayout mDrawerLayout;
     private SwipeRefreshLayout swipeRefreshLayout;
-
+    int a;//做了修改
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
