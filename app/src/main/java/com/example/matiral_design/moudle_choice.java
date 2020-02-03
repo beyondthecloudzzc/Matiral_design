@@ -20,5 +20,13 @@ public class moudle_choice extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+        ImageButton teacher = findViewById(R.id.teacher);
+        teacher.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent1 = new Intent(moudle_choice.this,TeacherLogin_activity.class);
+                startActivity(intent1);
+            }
+        });
     }
 }
