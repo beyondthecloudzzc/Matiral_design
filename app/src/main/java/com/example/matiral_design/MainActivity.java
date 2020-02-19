@@ -56,6 +56,7 @@ public class MainActivity extends AppCompatActivity
     private Uri uri;
     private DrawerLayout mDrawerLayout;
     private SwipeRefreshLayout swipeRefreshLayout;
+    private MyDataBaseHelper dbHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -68,6 +69,7 @@ public class MainActivity extends AppCompatActivity
         NavigationView navview = (NavigationView) findViewById(R.id.nav_view);
         ActionBar actionBar = getSupportActionBar();
         imageView = (ImageView) findViewById(R.id.picture);
+        dbHelper.getWritableDatabase();
         if (actionBar != null)
         {
             actionBar.setDisplayHomeAsUpEnabled(true);

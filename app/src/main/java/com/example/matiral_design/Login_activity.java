@@ -29,6 +29,14 @@ public class Login_activity extends AppCompatActivity {
         setContentView(R.layout.activity_login_activity);
         Button login = (Button) findViewById(R.id.login);
         Button register = (Button) findViewById(R.id.button2);
+        Button test = (Button) findViewById(R.id.test) ;
+        test.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Login_activity.this,MainActivity.class);
+                startActivity(intent);
+            }
+        });
         //登录按钮触发事件
         login.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -40,8 +48,6 @@ public class Login_activity extends AppCompatActivity {
                 LoginRequest(useName,passWord);//请求登录
             }
         });
-
-
         register.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

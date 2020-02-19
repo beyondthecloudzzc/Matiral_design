@@ -35,52 +35,104 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
         <android.support.constraint.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
-
-            <EditText
-                android:id="@+id/editText3"
-                android:layout_width="90dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="56dp"
-                android:layout_marginTop="74dp"
-                android:layout_marginEnd="238dp"
-                android:layout_marginBottom="29dp"
-                android:ems="10"
-                android:hint="学号"
-                android:inputType="textMultiLine"
-                app:layout_constraintBottom_toTopOf="@+id/editText4"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <EditText
-                android:id="@+id/editText4"
-                android:layout_width="92dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="56dp"
-                android:layout_marginTop="28dp"
-                android:layout_marginEnd="236dp"
-                android:ems="10"
-                android:hint="姓名"
-                android:inputType="textMultiLine"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/editText3" />
 
             <Button
                 android:id="@+id/save"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="128dp"
-                android:layout_marginEnd="72dp"
-                android:layout_marginBottom="46dp"
+                android:layout_marginStart="98dp"
+                android:layout_marginTop="24dp"
+                android:layout_marginEnd="41dp"
+                android:layout_marginBottom="29dp"
                 android:text="保存"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/class_num"
+                app:layout_constraintTop_toBottomOf="@+id/stu_num" />
+
+            <Spinner
+                android:id="@+id/academy"
+                android:layout_width="141dp"
+                android:layout_height="37dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="10dp"
+                android:autofillHints="年级"
+                android:entries="@array/academy"
+                app:layout_constraintBottom_toTopOf="@+id/grade"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
+
+            <Spinner
+                android:id="@+id/grade"
+                android:layout_width="141dp"
+                android:layout_height="37dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="17dp"
+                android:entries="@array/grade"
+                app:layout_constraintBottom_toTopOf="@+id/prof"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/academy"
+                app:layout_constraintVertical_chainStyle="spread_inside" />
+
+            <Spinner
+                android:id="@+id/prof"
+                android:layout_width="141dp"
+                android:layout_height="37dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="17dp"
+                android:entries="@array/prof"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/grade" />
+
+            <Spinner
+                android:id="@+id/class_num"
+                android:layout_width="141dp"
+                android:layout_height="37dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="17dp"
+                android:entries="@array/class_num"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/prof" />
+
+            <EditText
+                android:id="@+id/name"
+                android:layout_width="106dp"
+                android:layout_height="45dp"
+                android:layout_marginStart="93dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="28dp"
+                android:layout_marginBottom="10dp"
+                android:ems="10"
+                android:hint="姓名"
+                android:inputType="textMultiLine"
+                app:layout_constraintBottom_toTopOf="@+id/stu_num"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/academy"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_chainStyle="spread" />
+
+            <EditText
+                android:id="@+id/stu_num"
+                android:layout_width="106dp"
+                android:layout_height="44dp"
+                android:layout_marginStart="93dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="28dp"
+                android:layout_marginBottom="25dp"
+                android:ems="10"
+                android:hint="学号"
+                android:inputType="textMultiLine"
+                app:layout_constraintBottom_toTopOf="@+id/save"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/grade"
+                app:layout_constraintTop_toBottomOf="@+id/name" />
 
         </android.support.constraint.ConstraintLayout>
     </android.support.v4.widget.NestedScrollView>
