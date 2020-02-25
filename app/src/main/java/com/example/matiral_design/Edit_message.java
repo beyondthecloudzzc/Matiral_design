@@ -27,7 +27,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Edit_message extends AppCompatActivity {
-
+//提交测试
     /*
     @张纯
     2020.2.25
@@ -35,7 +35,6 @@ public class Edit_message extends AppCompatActivity {
 
      */
     String college,grade,major,class_num,name,stu_num;//学院年级专业班级姓名学号
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
