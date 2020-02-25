@@ -51,7 +51,7 @@ public class res extends AppCompatActivity {
         });
     }
 
-//
+//注册的servlet
     public  void RegisterRequest(final String accountNumber, final String password) {
         //请求地址
         String url = "http://271643ug95.wicp.vip/MyFirstWebApp/RegisterServlet";

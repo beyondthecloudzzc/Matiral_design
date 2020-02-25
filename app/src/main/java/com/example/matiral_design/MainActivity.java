@@ -69,7 +69,7 @@ public class MainActivity extends AppCompatActivity
         NavigationView navview = (NavigationView) findViewById(R.id.nav_view);
         ActionBar actionBar = getSupportActionBar();
         imageView = (ImageView) findViewById(R.id.picture);
-        dbHelper.getWritableDatabase();
+       // dbHelper.getWritableDatabase();
         if (actionBar != null)
         {
             actionBar.setDisplayHomeAsUpEnabled(true);
