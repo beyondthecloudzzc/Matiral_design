@@ -73,7 +73,7 @@ public class MainActivity extends AppCompatActivity
         if (actionBar != null)
         {
             actionBar.setDisplayHomeAsUpEnabled(true);
-            actionBar.setHomeAsUpIndicator(R.drawable.ic_launcher_foreground);
+            actionBar.setHomeAsUpIndicator(R.mipmap.category);
         }
         navview.setCheckedItem(R.id.nav_call);
         navview.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {

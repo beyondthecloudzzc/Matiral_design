@@ -12,19 +12,21 @@
         <android.support.design.widget.AppBarLayout
             android:layout_height="wrap_content"
             android:layout_width="match_parent">
+
             <android.support.v7.widget.Toolbar
+                app:title="标题"
+                app:titleTextColor="@color/colorAccent"
                 android:id="@+id/toolbar"
-                android:layout_height="?attr/actionBarSize"
                 android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
                 android:background="?attr/colorPrimary"
                 android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-                app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
                 app:layout_scrollFlags="scroll|enterAlways|snap"
-                >
+                app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
                 <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@mipmap/nav_back"/>
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                     />
             </android.support.v7.widget.Toolbar>
         </android.support.design.widget.AppBarLayout>
         <android.support.design.widget.FloatingActionButton

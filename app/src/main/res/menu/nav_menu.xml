@@ -5,22 +5,22 @@
         <item
             android:title="修改个人信息"
             android:id="@+id/nav_call"
-
+            android:icon="@mipmap/editor"
             />
         <item
-            android:title="打卡"
+            android:title="打卡（上传相片）"
             android:id="@+id/nav_freinds"
-
+            android:icon="@mipmap/certified_supplier"
             />
         <item
             android:title="查询"
-
             android:id="@+id/nav_location"
+            android:icon="@mipmap/view_larger"
             />
         <item
-            android:title="问题反馈"
-
+            android:title="教师信息反馈"
             android:id="@+id/nav_mail"
+            android:icon="@mipmap/contacts"
             />
     </group>
 </menu>
