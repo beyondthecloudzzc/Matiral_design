@@ -35,6 +35,11 @@ public class Edit_message extends AppCompatActivity {
 
      */
     String college,grade,major,class_num,name,stu_num;//学院年级专业班级姓名学号
+
+    static String stupic_path;
+    static String stupic_name;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -61,6 +66,7 @@ public class Edit_message extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 college = (String) sp_college.getSelectedItem();
+                stupic_path = "//"+college;//存个学院，这里不能+=不然路径前面就多了个空null
 
             }
 
@@ -74,6 +80,7 @@ public class Edit_message extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 grade = (String) sp_grade.getSelectedItem();
+                stupic_path += "//"+grade;
 
             }
 
@@ -87,6 +94,7 @@ public class Edit_message extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 major = (String)sp_major.getSelectedItem();
+                stupic_path += "//"+ major;
             }
 
             @Override
@@ -99,6 +107,7 @@ public class Edit_message extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 class_num = (String)sp_class_num.getSelectedItem();
+                stupic_path += "//"+ class_num;
 
             }
 
@@ -114,12 +123,20 @@ public class Edit_message extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 name = et_name.getText().toString();//获取姓名和学号
+                et_name.setText(name);
                 stu_num = et_stu_num.getText().toString();//没办法这玩意不弄监听器了，上传前取一下就行
+                et_stu_num.setText(stu_num);
+                System.out.println(stupic_path);
                 StuRequest(stu_num,name,college,grade,major,class_num);
+                stupic_name = stu_num+name;//存一下这个学号+姓名作为图片名字
 
+                System.out.println(stupic_name);
+                System.out.println("this is a test_out");
                 Toast.makeText(Edit_message.this,"保存成功",Toast.LENGTH_SHORT).show();
             }
         });
+
+
     }
 
     //上传学生信息的servlet

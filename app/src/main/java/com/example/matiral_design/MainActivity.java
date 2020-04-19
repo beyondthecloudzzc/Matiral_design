@@ -1,5 +1,6 @@
 package com.example.matiral_design;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -7,6 +8,8 @@ import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.provider.ContactsContract;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
@@ -37,13 +40,37 @@ import android.widget.TextView;
 import android.graphics.Bitmap;
 import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.bumptech.glide.Glide;
+import com.example.matiral_design.utils.Base64Coder;
+import com.example.matiral_design.utils.ZoomBitmap;
 
+import org.apache.http.HttpEntity;
+import org.apache.http.HttpResponse;
+import org.apache.http.NameValuePair;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.entity.UrlEncodedFormEntity;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.message.BasicNameValuePair;
+import org.apache.http.util.EntityUtils;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Random;
 
 
@@ -51,6 +78,7 @@ import java.util.Random;
 public class MainActivity extends AppCompatActivity
 {
     public static final int TAKE_POTHO=1;
+    private static final String HOST = "http://271643ug95.wicp.vip/MyFirstWebApp/UpServer";//上传的servlet的链接
     private ImageView imageView;
     private Button button;
     private Uri uri;
@@ -58,6 +86,9 @@ public class MainActivity extends AppCompatActivity
     private SwipeRefreshLayout swipeRefreshLayout;
     private MyDataBaseHelper dbHelper;
 
+    private Bitmap upbitmap;//2020/4/18添加
+    private Handler myHandler;
+    private ProgressDialog myDialog;
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -69,6 +100,10 @@ public class MainActivity extends AppCompatActivity
         NavigationView navview = (NavigationView) findViewById(R.id.nav_view);
         ActionBar actionBar = getSupportActionBar();
         imageView = (ImageView) findViewById(R.id.picture);
+
+
+        myHandler=new MyHandler();//2020/4/18
+
        // dbHelper.getWritableDatabase();
         if (actionBar != null)
         {
@@ -87,6 +122,28 @@ public class MainActivity extends AppCompatActivity
                        startActivity(intent);
                        break;
                    case  R.id.nav_freinds:
+                       final String stupic_name = Edit_message.stupic_name;
+                       final String stupic_path = Edit_message.stupic_path;
+
+                       System.out.println("测试取到图片路径" +stupic_path);
+                       System.out.println("测试取到图片名称" +stupic_name);
+
+
+                       //  info_uploaded_with_pic("stu",stu_num);//传记号stu代表学生//4/19abandoned
+
+
+
+                       new Thread(new Runnable() {
+                           public void run() {
+                               upload(stupic_path,stupic_name);//重写了upload函数以适应需求2020/4/19
+                               myHandler.sendMessage(new Message());
+                           }
+                       }).start();
+
+
+
+
+
                     Toast.makeText(MainActivity.this,"打卡成功",Toast.LENGTH_SHORT).show();
                        break;
                    case R.id.nav_location:
@@ -195,7 +252,11 @@ public class MainActivity extends AppCompatActivity
                 {
                     try{
                         Bitmap bitmap= BitmapFactory.decodeStream(getContentResolver().openInputStream(uri));
+                        float wight=bitmap.getWidth();
+                        float height=bitmap.getHeight();
                         imageView.setImageBitmap(bitmap);
+                        System.out.println("shizaizheliaaaa");
+                        upbitmap= ZoomBitmap.zoomImage(bitmap, wight/1.1, height/1.1);//这句压缩
                     }catch (FileNotFoundException e)
                     {
                         e.printStackTrace();
@@ -207,13 +268,95 @@ public class MainActivity extends AppCompatActivity
         }
     }
 
+//upload再次更新，一行代码或许可以抛弃数据库2020/4/19
+//upload核心2020/4/18
+    public void upload(String pic_path,String pic_name) {
+        ByteArrayOutputStream stream = new ByteArrayOutputStream();
+        upbitmap.compress(Bitmap.CompressFormat.JPEG, 90, stream);
+
+        byte[] b = stream.toByteArray();
+        // 将图片流以字符串形式存储下来
+
+        String file = new String(Base64Coder.encodeLines(b));
+
+        String path = pic_path;
+        String name = pic_name;
+
+
+        HttpClient client = new DefaultHttpClient();
+        // 设置上传参数
+        List<NameValuePair> formparams = new ArrayList<NameValuePair>();
+        formparams.add(new BasicNameValuePair("file", file));
+
+        /*下面就是这个,传图片的的时候把人的学号名字一并传上去，
+        同理图片在服务器端的路径也可以一并完成，
+        这样就可以减轻服务器端做大量的数据库查表操作
+
+         */
+        formparams.add(new BasicNameValuePair("path",pic_path));
+        formparams.add(new BasicNameValuePair("name", name));
+        HttpPost post = new HttpPost(HOST);
+        UrlEncodedFormEntity entity;
+
+
+        try {
+            entity = new UrlEncodedFormEntity(formparams, "UTF-8");
+            post.addHeader("Accept",
+                    "text/javascript, text/html, application/xml, text/xml");
+            post.addHeader("Accept-Charset", "GBK,utf-8;q=0.7,*;q=0.3");
+            post.addHeader("Accept-Encoding", "gzip,deflate,sdch");
+            post.addHeader("Connection", "Keep-Alive");
+            post.addHeader("Cache-Control", "no-cache");
+            post.addHeader("Content-Type", "application/x-www-form-urlencoded");
+
+
+            post.setEntity(entity);
+
+            System.out.println("可以到这里没有问题");
+            HttpResponse response = null;
+            System.out.println("可以到这里好像也没有问题");
+            try {
+                System.out.println("可能是下面这句的问题");
+
+                response = client.execute(post);//放线程里放线程里放线程里！！！！！！
+
+
+                System.out.println("可以到这里好像也啊啊啊啊啊啊啊啊没有问题");
+            } catch (IOException e) {
+                e.printStackTrace();
+                System.out.println("这里有问题");
+            }
+            System.out.println(response.getStatusLine().getStatusCode());
+
+            HttpEntity e = response.getEntity();
+            System.out.println(EntityUtils.toString(e));
+
+            if (200 == response.getStatusLine().getStatusCode()) {
+                System.out.println("上传完成");
+            } else {
+                System.out.println("上传失败");
+            }
+            client.getConnectionManager().shutdown();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private class MyHandler extends Handler {
+        @Override
+        public void handleMessage(Message msg) {
+            myDialog.dismiss();
+        }
+    }
     @Override
-    protected void onDestroy() {
-        super.onDestroy();
+   protected void onDestroy() {
+       super.onDestroy();
     }
 
     @Override
     protected void onResume() {
         super.onResume();
     }
+
+
 }
