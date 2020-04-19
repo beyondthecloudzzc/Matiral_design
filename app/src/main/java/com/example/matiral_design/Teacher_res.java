@@ -13,7 +13,7 @@ public class Teacher_res extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_teacher_res);
-        Button button3=findViewById(R.id.zhuce1);//注册按钮
+        Button button3=findViewById(R.id.zhuce);//注册按钮
         Button button4=findViewById(R.id.fanhuidl);//返回登录界面按钮
         //还需添加对再次确认密码才能完成注册的相关语句
         button3.setOnClickListener(new View.OnClickListener() {

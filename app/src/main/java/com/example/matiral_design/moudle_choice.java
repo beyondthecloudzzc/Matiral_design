@@ -24,7 +24,7 @@ public class moudle_choice extends AppCompatActivity {
         teacher.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent1 = new Intent(moudle_choice.this,TeacherLogin_activity.class);
+                Intent intent1 = new Intent(moudle_choice.this,activity_teacher_check.class);
                 startActivity(intent1);
             }
         });
