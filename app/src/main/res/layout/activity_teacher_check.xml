@@ -18,6 +18,24 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:srcCompat="@tools:sample/backgrounds/scenic" />
+        <GridView
+            android:id="@+id/gridView1"
+            android:layout_width="fill_parent"
+            android:layout_height="200dp"
+            android:layout_margin="10dp"
+            android:background="#EFDFDF"
+            android:horizontalSpacing="5dp"
+            android:verticalSpacing="5dp"
+            android:numColumns="3"
+            android:columnWidth="90dp"
+            android:stretchMode="columnWidth"
+            android:gravity="center" >
+        </GridView>
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="(友情提示:只能添加3张图片,长按图片可以删除已添加图片)"
+            android:gravity="center" />
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="120dp"
