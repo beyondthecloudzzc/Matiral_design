@@ -58,6 +58,7 @@ public class activity_teacher_check extends AppCompatActivity {
     private Spinner prospinner=null;
     private Spinner claspinner=null;
     private Button up_btn=null;
+    private Button check_btn=null;
     ArrayAdapter<String> insAdapter = null;
     ArrayAdapter<String> graAdapter = null;
     ArrayAdapter<String> proAdapter = null;
@@ -113,9 +114,6 @@ public class activity_teacher_check extends AppCompatActivity {
         hm.put("网络工程", "0830");
         hm.put("信息安全", "0840");
         hm.put("数据科学与大数据技术专业", "0850");
-        up_btn=findViewById(R.id.up_btn);
-        up_btn.setOnClickListener(new Buttonlistener());
-        setSpinner();
 
         getWindow().setSoftInputMode(WindowManager.LayoutParams.
                 SOFT_INPUT_ADJUST_PAN);
@@ -160,6 +158,12 @@ public class activity_teacher_check extends AppCompatActivity {
                 }
             }
         });
+
+        up_btn=findViewById(R.id.up_btn);
+        up_btn.setOnClickListener(new Buttonlistener());
+        check_btn=findViewById(R.id.check_btn);
+        check_btn.setOnClickListener(new Buttonlistener());
+        setSpinner();
     }
 
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -260,7 +264,8 @@ public class activity_teacher_check extends AppCompatActivity {
                     }
                     break;
                 case R.id.check_btn://这个等后端代码
-                    //反馈结果的，显示在下面的textview里
+                    //反馈结果的，显示在下面的textview里//
+                    Toast.makeText(activity_teacher_check.this,"查询",Toast.LENGTH_SHORT ).show();
                     break;
                 default:
                     break;
