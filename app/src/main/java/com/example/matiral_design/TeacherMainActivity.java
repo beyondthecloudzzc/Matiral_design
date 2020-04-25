@@ -116,11 +116,11 @@ public class TeacherMainActivity extends AppCompatActivity
                 {
                     //选择部分
                     case R.id.nav_call:
-                        Intent intent = new Intent(TeacherMainActivity.this,Edit_message.class);
+                        Intent intent = new Intent(TeacherMainActivity.this,Edit_message_teacher.class);
                         startActivity(intent);
                         break;
                     case  R.id.nav_freinds:
-                        System.out.println("测试取到图片路径" +Edit_message.stupic_str);
+                        System.out.println("测试取到图片路径" +Edit_message_teacher.stupic_str);
 
                         //final String name = "test1";
 
@@ -133,12 +133,12 @@ public class TeacherMainActivity extends AppCompatActivity
 
 
 
-                                if(upload(Edit_message.stupic_str,"test1",0))//第一张上传成功之后
+                                if(upload(Edit_message_teacher.stupic_str,"test1",0))//第一张上传成功之后
                                 {
 
-                                    if(upload(Edit_message.stupic_str,"test2",1))//上传第二张
+                                    if(upload(Edit_message_teacher.stupic_str,"test2",1))//上传第二张
                                     {
-                                        boolean b = upload(Edit_message.stupic_str,"test3",2);
+                                        boolean b = upload(Edit_message_teacher.stupic_str,"test3",2);
                                     }
                                 }
                                 myHandler.sendMessage(new Message());

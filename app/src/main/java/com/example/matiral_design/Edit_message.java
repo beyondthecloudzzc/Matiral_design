@@ -149,7 +149,7 @@ public class Edit_message extends AppCompatActivity {
                 stupic_name = stu_num+name;//存一下这个学号+姓名作为图片名字
 
                 System.out.println(stupic_name);
-                System.out.println("this is a test_out");
+                System.out.println("this is a test_out from Edit_message");
                 Toast.makeText(Edit_message.this,"保存成功",Toast.LENGTH_SHORT).show();
             }
         });et_name.setText(name);et_stu_num.setText(stu_num);

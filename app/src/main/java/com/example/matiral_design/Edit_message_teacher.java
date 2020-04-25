@@ -21,7 +21,7 @@ public class Edit_message_teacher extends AppCompatActivity {
     为了获得要上传的数据
 
      */
-    String college,grade,major,class_num,name,stu_num;//学院年级专业班级姓名学号
+    String college,grade,major,class_num;//学院年级专业班级姓名学号
 
     static String stupic_str;//识别码
     static String stupic_name;
@@ -42,14 +42,12 @@ public class Edit_message_teacher extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_edit_message);
+        setContentView(R.layout.activity_edit_message_teacher);
 
         final Spinner sp_college = findViewById(R.id.academy);
         final  Spinner sp_grade = findViewById(R.id.grade);
         final Spinner sp_major = findViewById(R.id.prof);
         final Spinner sp_class_num = findViewById(R.id.class_num);
-        final EditText et_name = findViewById(R.id.name);
-        final EditText et_stu_num = findViewById(R.id.stu_num);
         Button save = findViewById(R.id.save);
 
 
@@ -122,23 +120,20 @@ public class Edit_message_teacher extends AppCompatActivity {
         save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                name = et_name.getText().toString();//获取姓名和学号
-                et_name.setText(name);
-                stu_num = et_stu_num.getText().toString();//没办法这玩意不弄监听器了，上传前取一下就行
-                et_stu_num.setText(stu_num);
+
 
                 stupic_str = str[0]+str[1]+str[2]; //合成一个识别码
 
                 System.out.println(stupic_str);
                 // StuRequest(stu_num,name,college,grade,major,class_num);
 
-                stupic_name = stu_num+name;//存一下这个学号+姓名作为图片名字
 
-                System.out.println(stupic_name);
-                System.out.println("this is a test_out");
+
+
+                System.out.println("this is a test_out from Edit_message_teacher");
                 Toast.makeText(Edit_message_teacher.this,"保存成功",Toast.LENGTH_SHORT).show();
             }
-        });et_name.setText(name);et_stu_num.setText(stu_num);
+        });
 
 
     }

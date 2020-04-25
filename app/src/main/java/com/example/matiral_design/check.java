@@ -31,9 +31,10 @@ public class check extends AppCompatActivity {
         Button now = (Button) findViewById(R.id.current);
         Button ALL = (Button)findViewById(R.id.all_count);
 
-        String check="1";
-
+        String check = Edit_message.stupic_str;//获取识别码
+System.out.println("识别码"+check);
         CheckRequest(check);
+
         now.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -48,7 +49,7 @@ public class check extends AppCompatActivity {
         });
     }
 
-
+//2020/4/25更新@张纯
     public   void CheckRequest(final String check) {
         //请求地址
         String url = "http://271643ug95.wicp.vip/MyFirstWebApp/CheckServlet";    //注①
@@ -83,13 +84,13 @@ public class check extends AppCompatActivity {
                                 //做自己的注册成功操作，如页面跳转
                                 Toast.makeText(check.this, "你好!正在查询未到的学生"+student, Toast.LENGTH_LONG).show();
 
-                            } else {
+                            } else if(result.equals("failed")){
                                 //做自己的登录失败操作，如Toast提示
-                                Toast.makeText(check.this, "查询失败", Toast.LENGTH_LONG).show();
+                                Toast.makeText(check.this, "正在处理中，稍后重试", Toast.LENGTH_LONG).show();
                             }
                         } catch (JSONException e) {
                             //做自己的请求异常操作，如Toast提示（“无网络连接”等）
-                            Toast.makeText(check.this, "查询失败，无网络连接", Toast.LENGTH_LONG).show();
+                            Toast.makeText(check.this, "查询失败，正在处理中", Toast.LENGTH_LONG).show();
                             //Toast.makeText(this,"网络异常",Toast.LENGTH_LONG).show();
                             Log.e("TAG", e.getMessage(), e);
                         }

@@ -49,6 +49,7 @@
         </provider>
 
         <activity android:name=".Edit_message" />
+        <activity android:name=".Edit_message_teacher" />
         <activity android:name=".Login_activity" />
         <activity android:name=".res" />
         <activity android:name=".feedback" />
