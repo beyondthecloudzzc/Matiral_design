@@ -78,6 +78,7 @@ import java.util.Random;
 public class MainActivity extends AppCompatActivity
 {
     public static final int TAKE_POTHO=1;
+    // private static final String HOST = "http://271643ug95.wicp.vip/MyFirstWebApp/UpServlet_tec";
     private static final String HOST = "http://271643ug95.wicp.vip/MyFirstWebApp/UpServer";//上传的servlet的链接
     private ImageView imageView;
     private Button button;
@@ -94,17 +95,23 @@ public class MainActivity extends AppCompatActivity
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+
         setSupportActionBar(toolbar);
+
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
+
         NavigationView navview = (NavigationView) findViewById(R.id.nav_view);
+
         ActionBar actionBar = getSupportActionBar();
+
         imageView = (ImageView) findViewById(R.id.picture);
 
 
         myHandler=new MyHandler();//2020/4/18
 
-       // dbHelper.getWritableDatabase();
+        // dbHelper.getWritableDatabase();
         if (actionBar != null)
         {
             actionBar.setDisplayHomeAsUpEnabled(true);
@@ -114,50 +121,46 @@ public class MainActivity extends AppCompatActivity
         navview.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
-               switch (menuItem.getItemId())
-               {
-                   //选择部分
-                   case R.id.nav_call:
-                       Intent intent = new Intent(MainActivity.this,Edit_message.class);
-                       startActivity(intent);
-                       break;
-                   case  R.id.nav_freinds:
-                       final String stupic_name = Edit_message.stupic_name;
-                       final String stupic_path = Edit_message.stupic_path;
+                switch (menuItem.getItemId())
+                {
+                    //选择部分
+                    case R.id.nav_call:
+                        Intent intent = new Intent(MainActivity.this,Edit_message.class);
+                        startActivity(intent);
+                        break;
+                    case  R.id.nav_freinds:
 
-                       System.out.println("测试取到图片路径" +stupic_path);
-                       System.out.println("测试取到图片名称" +stupic_name);
+                        // String stupic_name = Edit_message.stupic_name;
+                        //String stupic_str = Edit_message.stupic_str;
 
+                        System.out.println("测试取到图片识别码" +Edit_message.stupic_str);
+                        System.out.println("测试取到图片名称" +Edit_message.stupic_name);
 
-                       //  info_uploaded_with_pic("stu",stu_num);//传记号stu代表学生//4/19abandoned
+                        new Thread(new Runnable() {
+                            public void run() {
 
-
-
-                       new Thread(new Runnable() {
-                           public void run() {
-                               upload(stupic_path,stupic_name);//重写了upload函数以适应需求2020/4/19
-                               myHandler.sendMessage(new Message());
-                           }
-                       }).start();
+                                upload(Edit_message.stupic_str,Edit_message.stupic_name);
+                                // upload(stupic_path,stupic_name);//重写了upload函数以适应需求2020/4/19
+                                myHandler.sendMessage(new Message());
+                            }
+                        }).start();
 
 
+                        Toast.makeText(MainActivity.this,"打卡成功",Toast.LENGTH_SHORT).show();
+                        break;
 
-
-
-                    Toast.makeText(MainActivity.this,"打卡成功",Toast.LENGTH_SHORT).show();
-                       break;
-                   case R.id.nav_location:
-                    Intent intent3 = new Intent(MainActivity.this,check.class);
-                       startActivity(intent3);
-                       break;
-                   case R.id.nav_mail:
-                       Intent intent4 = new Intent(MainActivity.this,feedback.class);
-                       startActivity(intent4);
-                       break;
-                   default:
-                           break;
-               }
-               return true;
+                    case R.id.nav_location:
+                        Intent intent3 = new Intent(MainActivity.this,check.class);
+                        startActivity(intent3);
+                        break;
+                    case R.id.nav_mail:
+                        Intent intent4 = new Intent(MainActivity.this,feedback.class);
+                        startActivity(intent4);
+                        break;
+                    default:
+                        break;
+                }
+                return true;
             }
         });
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
@@ -256,7 +259,8 @@ public class MainActivity extends AppCompatActivity
                         float height=bitmap.getHeight();
                         imageView.setImageBitmap(bitmap);
                         System.out.println("shizaizheliaaaa");
-                        upbitmap= ZoomBitmap.zoomImage(bitmap, wight/1.1, height/1.1);//这句压缩
+                        //upbitmap= ZoomBitmap.zoomImage(bitmap, wight/1.1, height/1.1);//这句压缩
+                        upbitmap= ZoomBitmap.zoomImage(bitmap, wight/1.5, height/1.5);//这句压缩，多次实验1.1还是太大了，成功率有点低提到1.5
                     }catch (FileNotFoundException e)
                     {
                         e.printStackTrace();
@@ -268,9 +272,9 @@ public class MainActivity extends AppCompatActivity
         }
     }
 
-//upload再次更新，一行代码或许可以抛弃数据库2020/4/19
+    //upload再次更新，一行代码或许可以抛弃数据库2020/4/19
 //upload核心2020/4/18
-    public void upload(String pic_path,String pic_name) {
+    public void upload(String pic_str,String pic_name) {
         ByteArrayOutputStream stream = new ByteArrayOutputStream();
         upbitmap.compress(Bitmap.CompressFormat.JPEG, 90, stream);
 
@@ -279,8 +283,7 @@ public class MainActivity extends AppCompatActivity
 
         String file = new String(Base64Coder.encodeLines(b));
 
-        String path = pic_path;
-        String name = pic_name;
+
 
 
         HttpClient client = new DefaultHttpClient();
@@ -293,8 +296,8 @@ public class MainActivity extends AppCompatActivity
         这样就可以减轻服务器端做大量的数据库查表操作
 
          */
-        formparams.add(new BasicNameValuePair("path",pic_path));
-        formparams.add(new BasicNameValuePair("name", name));
+        formparams.add(new BasicNameValuePair("path",pic_str));
+        formparams.add(new BasicNameValuePair("name", pic_name));
         HttpPost post = new HttpPost(HOST);
         UrlEncodedFormEntity entity;
 
@@ -349,8 +352,8 @@ public class MainActivity extends AppCompatActivity
         }
     }
     @Override
-   protected void onDestroy() {
-       super.onDestroy();
+    protected void onDestroy() {
+        super.onDestroy();
     }
 
     @Override

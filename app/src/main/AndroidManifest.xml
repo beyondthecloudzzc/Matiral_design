@@ -3,6 +3,9 @@
     package="com.example.matiral_design">
 
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+
+
+
     <!-- 网络权限-->
     <uses-permission android:name="android.permission.INTERNET" />
 
@@ -34,8 +37,7 @@
             android:name=".TeacherMainActivity"
             android:label="教师端" />
         <activity android:name=".StudentSignin" />
-        <activity android:name=".Teacher_res" />
-        <activity android:name=".TeacherLogin_activity" />
+
         <provider
             android:name="android.support.v4.content.FileProvider"
             android:authorities="com.example.gdzc.cameraalbumtest.fileprovider"
