@@ -1,8 +1,10 @@
 package com.example.matiral_design;
 
+import android.Manifest;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
@@ -16,6 +18,7 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.content.FileProvider;
 import android.support.v4.view.GravityCompat;
@@ -90,6 +93,7 @@ public class MainActivity extends AppCompatActivity
     private Bitmap upbitmap;//2020/4/18添加
     private Handler myHandler;
     private ProgressDialog myDialog;
+
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -215,6 +219,7 @@ public class MainActivity extends AppCompatActivity
             }
         });
     }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

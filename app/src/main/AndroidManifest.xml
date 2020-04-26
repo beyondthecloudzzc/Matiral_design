@@ -3,10 +3,9 @@
     package="com.example.matiral_design">
 
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-
-
-
-    <!-- 网络权限-->
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <!-- 网络权限 -->
     <uses-permission android:name="android.permission.INTERNET" />
 
     <!-- To auto-complete the email text field in the login form with the user's emails -->
@@ -24,19 +23,21 @@
         <activity
             android:name=".MainActivity"
             android:label="@string/app_name"
-            android:theme="@style/AppTheme.NoActionBar">
-        </activity>
+            android:theme="@style/AppTheme.NoActionBar"></activity>
         <activity android:name=".moudle_choice">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
-                <category android:name="android.intent.category.LAUNCHER"/>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ReStuSingnin"></activity>
+        <activity android:name=".ReStuSingnin" />
         <activity
             android:name=".TeacherMainActivity"
             android:label="教师端" />
         <activity android:name=".StudentSignin" />
+        <activity android:name=".Teacher_res" />
+        <activity android:name=".TeacherLogin_activity" />
 
         <provider
             android:name="android.support.v4.content.FileProvider"
@@ -49,11 +50,11 @@
         </provider>
 
         <activity android:name=".Edit_message" />
-        <activity android:name=".Edit_message_teacher" />
         <activity android:name=".Login_activity" />
         <activity android:name=".res" />
         <activity android:name=".feedback" />
-        <activity android:name=".check"></activity>
+        <activity android:name=".check" />
+        <activity android:name=".activity_teacher_check"></activity>
     </application>
 
 </manifest>

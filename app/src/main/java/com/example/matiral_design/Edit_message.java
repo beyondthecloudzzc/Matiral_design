@@ -59,7 +59,7 @@ public class Edit_message extends AppCompatActivity {
         setContentView(R.layout.activity_edit_message);
 
         final Spinner sp_college = findViewById(R.id.academy);
-        final  Spinner sp_grade = findViewById(R.id.grade);
+        final Spinner sp_grade = findViewById(R.id.grade);
         final Spinner sp_major = findViewById(R.id.prof);
         final Spinner sp_class_num = findViewById(R.id.class_num);
         final EditText et_name = findViewById(R.id.name);

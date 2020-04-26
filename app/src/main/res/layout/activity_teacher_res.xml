@@ -65,12 +65,7 @@
                 android:layout_height="wrap_content"
                 android:hint="再次输入密码" />
         </LinearLayout>
-        <Button
-            android:id="@+id/zhuce1"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:text="注册"
-            android:layout_marginTop="32dp"/>
+
         <Button
             android:id="@+id/fanhuidl"
             android:layout_width="fill_parent"
