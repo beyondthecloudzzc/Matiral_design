@@ -129,6 +129,11 @@ public class MainActivity extends AppCompatActivity
                         startActivity(intent);
                         break;
                     case  R.id.nav_freinds:
+                        if(upbitmap == null)//如果没拍照要提醒
+                        {
+                            Toast.makeText(getApplicationContext(), "请先拍照", Toast.LENGTH_SHORT).show();
+                            break;
+                        }
 
                         // String stupic_name = Edit_message.stupic_name;
                         //String stupic_str = Edit_message.stupic_str;
@@ -138,10 +143,18 @@ public class MainActivity extends AppCompatActivity
 
                         new Thread(new Runnable() {
                             public void run() {
-
-                                upload(Edit_message.stupic_str,Edit_message.stupic_name);
+                                Message msg = new Message();
+                                try {
+                                    upload(Edit_message.stupic_str,Edit_message.stupic_name);
+                                } catch (IOException e) {
+                                    e.printStackTrace();
+                                    msg.what = 2;
+                                }
                                 // upload(stupic_path,stupic_name);//重写了upload函数以适应需求2020/4/19
-                                myHandler.sendMessage(new Message());
+
+                                msg.what = 1;
+                                msg.obj = "上传完成";
+                                myHandler.sendMessage(msg);
                             }
                         }).start();
 
@@ -274,7 +287,7 @@ public class MainActivity extends AppCompatActivity
 
     //upload再次更新，一行代码或许可以抛弃数据库2020/4/19
 //upload核心2020/4/18
-    public void upload(String pic_str,String pic_name) {
+    public void upload(String pic_str,String pic_name) throws IOException {
         ByteArrayOutputStream stream = new ByteArrayOutputStream();
         upbitmap.compress(Bitmap.CompressFormat.JPEG, 90, stream);
 
@@ -283,10 +296,7 @@ public class MainActivity extends AppCompatActivity
 
         String file = new String(Base64Coder.encodeLines(b));
 
-
-
-
-        HttpClient client = new DefaultHttpClient();
+      final  HttpClient client = new DefaultHttpClient();
         // 设置上传参数
         List<NameValuePair> formparams = new ArrayList<NameValuePair>();
         formparams.add(new BasicNameValuePair("file", file));
@@ -298,7 +308,7 @@ public class MainActivity extends AppCompatActivity
          */
         formparams.add(new BasicNameValuePair("path",pic_str));
         formparams.add(new BasicNameValuePair("name", pic_name));
-        HttpPost post = new HttpPost(HOST);
+      final   HttpPost post = new HttpPost(HOST);
         UrlEncodedFormEntity entity;
 
 
@@ -318,20 +328,19 @@ public class MainActivity extends AppCompatActivity
             System.out.println("可以到这里没有问题");
             HttpResponse response = null;
             System.out.println("可以到这里好像也没有问题");
+            System.out.println("可能是下面这句的问题");
+
             try {
-                System.out.println("可能是下面这句的问题");
 
                 response = client.execute(post);//放线程里放线程里放线程里！！！！！！
-
-
-                System.out.println("可以到这里好像也啊啊啊啊啊啊啊啊没有问题");
             } catch (IOException e) {
                 e.printStackTrace();
-                System.out.println("这里有问题");
             }
+            System.out.println("可以到这里好像也啊啊啊啊啊啊啊啊没有问题");
             System.out.println(response.getStatusLine().getStatusCode());
 
             HttpEntity e = response.getEntity();
+
             System.out.println(EntityUtils.toString(e));
 
             if (200 == response.getStatusLine().getStatusCode()) {
@@ -348,7 +357,16 @@ public class MainActivity extends AppCompatActivity
     private class MyHandler extends Handler {
         @Override
         public void handleMessage(Message msg) {
-            myDialog.dismiss();
+            if(msg.what == 1)
+            {
+                String resp = (String) msg.obj;
+                Toast.makeText(getApplicationContext(), resp, Toast.LENGTH_SHORT).show();
+            }
+            else
+            {
+                Toast.makeText(getApplicationContext(), "上传失败", Toast.LENGTH_SHORT).show();
+            }
+           // myDialog.dismiss();
         }
     }
     @Override

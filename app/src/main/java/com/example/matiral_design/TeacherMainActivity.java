@@ -121,6 +121,11 @@ public class TeacherMainActivity extends AppCompatActivity
                         break;
                     case  R.id.nav_freinds:
                         System.out.println("测试取到图片路径" +Edit_message_teacher.stupic_str);
+                        if(upbitmap_pic[0]==null)//如果没拍照要提醒
+                        {
+                            Toast.makeText(getApplicationContext(), "请先拍照", Toast.LENGTH_SHORT).show();
+                            break;
+                        }
 
                         //final String name = "test1";
 
@@ -142,6 +147,10 @@ public class TeacherMainActivity extends AppCompatActivity
                                     }
                                 }
                                 myHandler.sendMessage(new Message());
+                                Message msg = new Message();
+                                msg.what = 1;
+                                msg.obj = "上传完成";
+                                myHandler.sendMessage(msg);
 
 
                             }
@@ -401,7 +410,12 @@ public class TeacherMainActivity extends AppCompatActivity
     private class MyHandler extends Handler {
         @Override
         public void handleMessage(Message msg) {
-            myDialog.dismiss();
+            if(msg.what == 1)
+            {
+                String resp = (String) msg.obj;
+                Toast.makeText(getApplicationContext(), resp, Toast.LENGTH_SHORT).show();
+            }
+
         }
     }
     @Override
